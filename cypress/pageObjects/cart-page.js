@@ -11,7 +11,8 @@ export class CartPage extends BaseClass {
     }
 
     verifyProductInCart() {
-        cy.get(this.productList).should('exist');
+        cy.get('@selectedProductName').then((name) => {
+            this.verifyElementContainsText(this.cartSelectors.productList, name);
+        });
     }
-
 }

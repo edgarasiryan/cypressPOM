@@ -41,10 +41,18 @@ export class BaseClass {
         cy.get(this.constant_selectors.cart).click()
     }
     
+    verifyElementContainsText(selector, expectedText) {
+        cy.get(selector).should('contain.text', expectedText);
+    }
+
     selectRandomProduct(cardSelector, innerSelector) {
         cy.get(cardSelector).then(($cards) => {
             const randomIndex = Math.floor(Math.random() * $cards.length);
-            cy.wrap($cards[randomIndex]).find(innerSelector).click();
+            const $card = $cards[randomIndex];
+            const productName = $card.querySelector(innerSelector).innerText;
+    
+            cy.wrap(productName).as('selectedProductName');
+            cy.wrap($card).find(innerSelector).click();
         });
     }
 }    

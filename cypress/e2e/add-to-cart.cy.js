@@ -13,10 +13,11 @@ describe('Test Add to Cart functionality', () => {
 
   it('Test Add product to cart and verify alert', () => {
     homePage.clickRandomProduct();
-    productPage.addToCart();
     productPage.verifyProductAddedAlert('Product added');
+    productPage.addToCart();
+    cy.wait(1000)
     productPage.getCartPage();
     cartPage.verifyCartPageVisible();
-    cartPage.verifyProductInCart(homePage.selectedProductTitle);
-  })
+    cartPage.verifyProductInCart();
+})
 });
